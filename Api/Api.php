@@ -100,7 +100,7 @@ class Api extends DBConnect
             $countQuery = "SELECT COUNT(*) FROM participant";
             $count = $this->_db->query($countQuery)->fetch(\PDO::FETCH_ASSOC)['COUNT(*)'];
             if ($count>$this->getParticipantCount()) {
-                return $this->getResponse(null,"ok","Извините, все места заняты");
+                return $this->getResponse(null,"ok","Sorry, but there's no room. You can join to another session.");
             }
             $userQuery = "SELECT * FROM participant WHERE Email='$email'";
             $userCheck = $this->_db->query($userQuery);
@@ -111,12 +111,12 @@ class Api extends DBConnect
             $sessionSubscibeQuery = "INSERT INTO session_participant (`participant_id`, `session_id`) VALUES ('".$user['ID']."', '".$sessionId."')";
             $sessionSubscibeResult = $this->_db->query($sessionSubscibeQuery);
             if ($sessionSubscibeResult === false) {
-                return $this->getResponse($body,"ok", "Извините, вы не зарегестрированный посетитель");
+                return $this->getResponse($body,"ok", "Sorry, you need to sign up to join to the session.");
             }
             while ($row = $sessionSubscibeResult->fetch(\PDO::FETCH_ASSOC)) {
                 $body [] = $row;
             }
-            return $this->getResponse($body,"ok", "Спасибо, вы успешно записаны!");
+            return $this->getResponse($body,"ok", "Thanks, you are successfully registered!");
         } catch (\PDOException $ex) {
             return $this->getResponse($body,"error", $ex->getMessage());
         }
