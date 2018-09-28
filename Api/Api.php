@@ -109,9 +109,7 @@ class Api extends DBConnect
             }
             $user = $userCheck->fetch(\PDO::FETCH_ASSOC);
             $sessionSubscibeQuery = "INSERT INTO session_participant (`participant_id`, `session_id`) VALUES ('".$user['ID']."', '".$sessionId."')";
-            echo $sessionSubscibeQuery;
             $sessionSubscibeResult = $this->_db->query($sessionSubscibeQuery);
-            var_dump($sessionSubscibeResult);
             if ($sessionSubscibeResult === false) {
                 return $this->getResponse($body,"ok", "Извините, вы не зарегестрированный посетитель");
             }

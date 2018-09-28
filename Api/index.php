@@ -37,7 +37,7 @@ $front->route();
 </div>
 
 <div id="subscribe">
-    <form action="/Api/table" method="POST">
+    <form action="/Api/SessionSubscribe" method="POST">
         <label for="email">Название таблицы</label>
         <input id="email" name="email" type="text" value=""/>
         <input type="submit" value="Записаться на курс"/>
